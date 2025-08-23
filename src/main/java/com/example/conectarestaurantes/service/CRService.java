@@ -15,7 +15,6 @@ public class CRService {
 
 
 
-
     public CRService(OrderRepository repository){
         this.repository = repository;
     }
@@ -26,6 +25,15 @@ public class CRService {
 
     public Order findbyid(Long id){
         return repository.findById(id).orElse(null);
+    }
+
+    public Order save(Order o){
+        o.setStatus("RECEBIDO");
+        return repository.save(o);
+    }
+
+    public void deleteById(Long id){
+        repository.deleteById(id);
     }
 
 
