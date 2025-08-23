@@ -7,6 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
 
 import java.util.List;
 
@@ -40,10 +43,28 @@ public class CRController {
     }
 
     @GetMapping("/all")
-    public List<Order> findAll(){
-        return service.findAll();
+    public Page<Order> findAll( @RequestParam(required = false) Long id,
+                                @RequestParam(name = "obra_like", required = false) String obra,
+                                @RequestParam(name = "gestor_like", required = false) String gestor,
+                                @RequestParam(required = false) String status,
+                                @RequestParam(name = "qtd_Marmitas_gte", required = false) Integer maiorQue,
+                                @RequestParam(name = "qtd_Marmitas_lte", required = false) Integer menorQue,
+                                Pageable pageable){
+        return service.search(id, obra, gestor, status, maiorQue, menorQue, pageable);
     }
 
+    @GetMapping("/search")
+    public Page<Order> search(
+            @RequestParam(required = false) Long id,
+            @RequestParam(name = "obra_like", required = false) String obra,
+            @RequestParam(name = "gestor_like", required = false) String gestor,
+            @RequestParam(required = false) String status,
+            @RequestParam(name = "qtd_Marmitas_gte", required = false) Integer maiorQue,
+            @RequestParam(name = "qtd_Marmitas_lte", required = false) Integer menorQue,
+            Pageable pageable) {
+
+        return service.search(id, obra, gestor, status, maiorQue, menorQue, pageable);
+}
 
     @GetMapping("/{id}")
     public Order findById(@PathVariable  Long id){
