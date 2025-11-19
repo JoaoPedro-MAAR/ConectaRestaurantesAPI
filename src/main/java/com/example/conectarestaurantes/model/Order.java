@@ -1,11 +1,15 @@
 package com.example.conectarestaurantes.model;
 
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name="orders")
+@Table(name="tb_orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
