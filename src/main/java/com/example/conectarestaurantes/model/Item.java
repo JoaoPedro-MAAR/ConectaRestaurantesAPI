@@ -20,9 +20,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nomeItem;
+    private String nome;
     private String categoria;
 
-    @ManyToMany(mappedBy = "itens")
-    private List<Cardapio> cardapios = new ArrayList<>();
 }
