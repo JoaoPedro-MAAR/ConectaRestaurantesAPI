@@ -8,6 +8,6 @@ import com.example.conectarestaurantes.model.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    Page<Item> findByNomeItemContainingIgnoreCase(String nome, Pageable pageable);
+    Page<Item> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
 
 }

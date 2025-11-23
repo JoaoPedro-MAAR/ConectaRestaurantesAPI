@@ -18,6 +18,6 @@ public class ItemService {
             return itemRepo.findAll(pageable);
         } 
         
-        return itemRepo.findByNomeItemContainingIgnoreCase(nome, pageable);
+        return itemRepo.findByNomeContainingIgnoreCase(nome, pageable);
     }
 }
