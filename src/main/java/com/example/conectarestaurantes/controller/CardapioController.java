@@ -1,13 +1,15 @@
 package com.example.conectarestaurantes.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.conectarestaurantes.dto.CardapioDTO;
 import com.example.conectarestaurantes.model.Cardapio;
 import com.example.conectarestaurantes.service.CardapioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,6 +20,11 @@ public class CardapioController {
     private CardapioService cardapioService;
 
     @GetMapping
+    public Page<Cardapio> listAllPaginated(@PageableDefault(page=0, size=10,sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+        return cardapioService.getAllPaginated(pageable);
+    }
+
+    @GetMapping("/all")
     public List<Cardapio> listAll() {
         return cardapioService.getAllCardapios();
     }
@@ -47,4 +54,20 @@ public class CardapioController {
     public void delete(@PathVariable Long id) {
         cardapioService.deleteCardapio(id);
     }
+
+    @PutMapping("/active/{id}")
+    public Cardapio activate(@PathVariable Long id){
+        return cardapioService.activateCardapio(id);
+    }
+
+    @PutMapping("/deactivate")
+    public Cardapio deactivate() throws Exception {
+        return cardapioService.deactivateCardapio();
+    }
+
+    @GetMapping("/active")
+    public Cardapio getActive(){
+        return cardapioService.getCardapioActive();
+    }
+
 }

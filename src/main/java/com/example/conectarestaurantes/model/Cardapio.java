@@ -26,6 +26,9 @@ public class Cardapio {
     @Column(length = 500, nullable = true)
     private String descricao;
 
+    @Column(nullable=true)
+    private Boolean ativo;
+
     @ManyToMany
     private List<Item> itens = new ArrayList<>();
 
