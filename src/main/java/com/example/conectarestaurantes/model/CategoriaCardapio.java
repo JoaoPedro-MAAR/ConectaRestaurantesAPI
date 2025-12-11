@@ -3,6 +3,7 @@ package com.example.conectarestaurantes.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ public class CategoriaCardapio {
     @ManyToOne
     @JoinColumn(name="cardapio_id")
     @ToString.Exclude
+    @JsonIgnore
     private Cardapio cardapio;
 
     @ManyToMany
