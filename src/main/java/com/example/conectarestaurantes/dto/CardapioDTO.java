@@ -8,5 +8,6 @@ import lombok.Data;
 public class CardapioDTO {
     private String nome;
     private String descricao;
-    private List<Long> itensIds;
+    private Boolean ativo;
+    private List<CategoriaCardapioDTO> categorias;
 }

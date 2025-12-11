@@ -3,12 +3,17 @@ package com.example.conectarestaurantes.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.conectarestaurantes.model.enums.Turno;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -29,8 +34,10 @@ public class Cardapio {
     @Column(nullable=true)
     private Boolean ativo;
 
-    @ManyToMany
-    private List<Item> itens = new ArrayList<>();
+    @OneToMany(mappedBy = "cardapio", cascade= CascadeType.ALL, orphanRemoval = true)
+    private List<CategoriaCardapio> categorias = new ArrayList<>();
 
-
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private Turno turnoPadrao;
 }
