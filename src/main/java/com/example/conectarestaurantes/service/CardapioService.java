@@ -38,7 +38,12 @@ public class CardapioService {
         Cardapio cardapio = new Cardapio();
         cardapio.setNome(cardapioDTO.getNome());
         cardapio.setDescricao(cardapioDTO.getDescricao());
-        cardapio.setAtivo(cardapioDTO.getAtivo());
+        
+        if (cardapioDTO.getAtivo() == null){
+            cardapio.setAtivo(false);
+        } else {
+            cardapio.setAtivo(cardapioDTO.getAtivo());
+        }
 
         if (cardapioDTO.getCategorias () != null){
             for (CategoriaCardapioDTO categoriaDTO : cardapioDTO.getCategorias()){
@@ -56,10 +61,6 @@ public class CardapioService {
             }
         }
         return cardapioRepo.save(cardapio);
-        // if (itensIds != null && !itensIds.isEmpty()) {
-        //     cardapio.setItens(itemRepo.findAllById(itensIds));
-        // }
-        // return cardapioRepo.save(cardapio);
     }
 
     public void deleteCardapio(Long id) {
