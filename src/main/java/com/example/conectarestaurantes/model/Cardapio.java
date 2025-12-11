@@ -3,9 +3,13 @@ package com.example.conectarestaurantes.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.conectarestaurantes.model.enums.Turno;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,4 +36,8 @@ public class Cardapio {
 
     @OneToMany(mappedBy = "cardapio", cascade= CascadeType.ALL, orphanRemoval = true)
     private List<CategoriaCardapio> categorias = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private Turno turnoPadrao;
 }

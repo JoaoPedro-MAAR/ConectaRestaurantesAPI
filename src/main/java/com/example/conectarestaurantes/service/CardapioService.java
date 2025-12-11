@@ -1,6 +1,7 @@
 package com.example.conectarestaurantes.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import com.example.conectarestaurantes.dto.CategoriaCardapioDTO;
 import com.example.conectarestaurantes.model.Cardapio;
 import com.example.conectarestaurantes.model.CategoriaCardapio;
 import com.example.conectarestaurantes.model.Item;
+import com.example.conectarestaurantes.model.enums.Turno;
 
 @Service
 public class CardapioService {
@@ -115,5 +117,24 @@ public class CardapioService {
         return newCandidate;
 
 
+    }
+
+    public Cardapio definirCardapioPadrao (Long idCardapio, Turno turno) {
+        Optional<Cardapio> cardapioAntigoPadrao = cardapioRepo.findByTurnoPadrao(turno);
+
+        if (cardapioAntigoPadrao.isPresent()) {
+            Cardapio antigo = cardapioAntigoPadrao.get();
+            antigo.setTurnoPadrao(null);
+            cardapioRepo.save(antigo);
+        }
+        Cardapio novoCardapioPadrao = getCardapioById(idCardapio);
+        novoCardapioPadrao.setTurnoPadrao(turno);
+        return cardapioRepo.save(novoCardapioPadrao);
+    }
+
+    public Cardapio removerCardapioPadrao (Long id) {
+        Cardapio cardapio = getCardapioById(id);
+        cardapio.setTurnoPadrao(null);
+        return cardapioRepo.save(cardapio);
     }
 }

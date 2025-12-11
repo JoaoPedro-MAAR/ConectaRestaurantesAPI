@@ -1,15 +1,28 @@
 package com.example.conectarestaurantes.controller;
 
-import com.example.conectarestaurantes.dto.CardapioDTO;
-import com.example.conectarestaurantes.model.Cardapio;
-import com.example.conectarestaurantes.service.CardapioService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.conectarestaurantes.dto.CardapioDTO;
+import com.example.conectarestaurantes.model.Cardapio;
+import com.example.conectarestaurantes.model.enums.Turno;
+import com.example.conectarestaurantes.service.CardapioService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -73,4 +86,15 @@ public class CardapioController {
         return cardapioService.getCardapioActive();
     }
 
+    @PutMapping("/{id}/padrao")
+    public ResponseEntity<Cardapio> definirCardapioPadrao(@PathVariable Long id, @RequestParam Turno turno) {
+        Cardapio cardapioAtualizado = cardapioService.definirCardapioPadrao(id, turno);
+        return ResponseEntity.ok(cardapioAtualizado);
+    }
+
+    @DeleteMapping("/{id}/padrao")
+    public ResponseEntity<Cardapio> removerCardapioPadrao(@PathVariable Long id) {
+        Cardapio cardapioAtualizado = cardapioService.removerCardapioPadrao(id);
+        return ResponseEntity.ok(cardapioAtualizado);
+    }
 }
