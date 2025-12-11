@@ -10,13 +10,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("SELECT o FROM Order o WHERE " +
+    @Query(value = "SELECT * FROM tb_orders o WHERE " +
             "(:id IS NULL OR o.id = :id) AND " +
-            "(:obra IS NULL OR LOWER(o.obra) LIKE LOWER(CONCAT('%', :obra, '%'))) AND " +
-            "(:gestor IS NULL OR LOWER(o.gestor) LIKE LOWER(CONCAT('%', :gestor, '%'))) AND " +
+            "(:obra IS NULL OR LOWER(CAST(o.obra AS TEXT)) LIKE LOWER(CONCAT('%', :obra, '%'))) AND " +
+            "(:gestor IS NULL OR LOWER(CAST(o.gestor AS TEXT)) LIKE LOWER(CONCAT('%', :gestor, '%'))) AND " +
             "(:status IS NULL OR o.status = :status) AND " +
-            "(:maiorQue IS NULL OR o.qtd_Marmitas >= :maiorQue) AND " +
-            "(:menorQue IS NULL OR o.qtd_Marmitas <= :menorQue)")
+            "(:maiorQue IS NULL OR o.qtd_marmitas >= :maiorQue) AND " +
+            "(:menorQue IS NULL OR o.qtd_marmitas <= :menorQue)",
+            nativeQuery = true)
     Page<Order> search(
             @Param("id") Long id,
             @Param("obra") String obra,

@@ -15,14 +15,14 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String obra;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String gestor;
     @Column(nullable = false)
     private int qtd_Marmitas;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "VARCHAR(50)")
     private String status;
 
     public Order() {}
