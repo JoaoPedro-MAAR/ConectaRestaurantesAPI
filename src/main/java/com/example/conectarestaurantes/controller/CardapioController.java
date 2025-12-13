@@ -33,8 +33,8 @@ public class CardapioController {
     private CardapioService cardapioService;
 
     @GetMapping
-    public Page<Cardapio> listAllPaginated(@PageableDefault(page=0, size=10,sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
-        return cardapioService.getAllPaginated(pageable);
+    public ResponseEntity<Page<Cardapio>> listAllPaginated(@PageableDefault(page=0, size=10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+       return ResponseEntity.ok(cardapioService.getAllPaginated(pageable));
     }
 
     @GetMapping("/all")
