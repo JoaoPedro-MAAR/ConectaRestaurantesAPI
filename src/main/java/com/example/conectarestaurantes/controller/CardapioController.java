@@ -33,8 +33,12 @@ public class CardapioController {
     private CardapioService cardapioService;
 
     @GetMapping
-    public ResponseEntity<Page<Cardapio>> listAllPaginated(@PageableDefault(page=0, size=10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
-       return ResponseEntity.ok(cardapioService.getAllPaginated(pageable));
+    public ResponseEntity<Page<Cardapio>> listAllPaginated(@PageableDefault(page=0, size=10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+    @RequestParam(required = false) String nome,
+    @RequestParam(required = false) String descricao,
+    @RequestParam(required = false) Boolean ativo,
+    @RequestParam(required = false) String turnoPadrao){
+       return ResponseEntity.ok(cardapioService.getAllPaginated(pageable, nome, descricao, ativo, turnoPadrao));
     }
 
     @GetMapping("/all")

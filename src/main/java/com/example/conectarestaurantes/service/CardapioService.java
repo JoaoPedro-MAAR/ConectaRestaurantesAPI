@@ -83,8 +83,8 @@ public class CardapioService {
     //     return cardapioRepo.save(cardapioAtual);
     // }
 
-    public Page<Cardapio> getAllPaginated(Pageable pageable) {
-        return cardapioRepo.findAll(pageable);
+    public Page<Cardapio> getAllPaginated(Pageable pageable, String nome, String descricao, Boolean ativo, String turnoPadrao) {
+        return cardapioRepo.findAllPaginateWithFilters(pageable, nome, descricao, ativo, turnoPadrao);
     }
 
     public Cardapio activateCardapio(Long id) {
