@@ -1,8 +1,11 @@
 package com.example.conectarestaurantes.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.conectarestaurantes.Repository.FuncionarioRepository;
@@ -70,5 +73,15 @@ public class RegistroRefeicaoService {
             resp.setDataHora(r.getDataHora());
         }
         return resp;
+    }
+
+    public List<RegistroRefeicaoResponseDTO> listarUltimos() {
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("dataHora").descending());
+
+        return registroRepo.findAll(pageRequest)
+                .getContent() 
+                .stream()
+                .map(registro -> converterParaDTO(registro.getFuncionario(), registro))
+                .toList();
     }
 }

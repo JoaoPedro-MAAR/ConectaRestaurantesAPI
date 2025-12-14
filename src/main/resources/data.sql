@@ -65,9 +65,16 @@ INSERT INTO tb_item (nome, categoria) VALUES ('Tábua de Frios', 'Porção');
 INSERT INTO tb_item (nome, categoria) VALUES ('Isca de Peixe', 'Porção');
 INSERT INTO tb_item (nome, categoria) VALUES ('Café Expresso', 'Bebida');
 
-INSERT INTO tb_empresa (id, nome, cnpj) VALUES (1, 'Tech Solutions', '12.345.678/0001-90');
-INSERT INTO tb_empresa (id, nome, cnpj) VALUES (2, 'Construtora Forte', '98.765.432/0001-10');
+DELETE FROM tb_registro_refeicao;
+DELETE FROM tb_funcionario;
+DELETE FROM tb_empresa;
 
-INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('João Silva', '11111111111', 'Desenvolvedor', 1);
-INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Maria Souza', '22222222222', 'Engenheira', 2);
-INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Carlos P', '33333333333', 'Analista', 1);
+INSERT INTO tb_empresa (id, nome, cnpj) VALUES (1, 'Construtora Forte', '98.765.432/0001-10');
+INSERT INTO tb_empresa (id, nome, cnpj) VALUES (2, 'RAM Engenharia e Demolição Vertical', '33.333.333/0001-33');
+INSERT INTO tb_empresa (id, nome, cnpj) VALUES (3, 'Construtora Horizonte', '44.444.444/0001-44');
+
+
+INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Carlos P', '11111111111', 'Engenheiro', 2);
+INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('João Silva', '22222222222', 'Engenheiro', 1);
+INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Maria Souza', '33333333333', 'Arquiteta', 3);
+INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Ana Costa', '44444444444', 'Arquiteta', 3);

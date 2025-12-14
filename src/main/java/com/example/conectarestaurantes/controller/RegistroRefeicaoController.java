@@ -1,5 +1,7 @@
 package com.example.conectarestaurantes.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,5 +32,10 @@ public class RegistroRefeicaoController {
     @PostMapping
     public ResponseEntity<RegistroRefeicaoResponseDTO> registrar(@RequestBody RegistroRefeicaoDTO dto) {
         return ResponseEntity.ok(service.registrarRefeicao(dto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RegistroRefeicaoResponseDTO>> listarUltimos() {
+        return ResponseEntity.ok(service.listarUltimos());
     }
 }
