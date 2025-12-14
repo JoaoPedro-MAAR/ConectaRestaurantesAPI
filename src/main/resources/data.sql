@@ -64,3 +64,10 @@ INSERT INTO tb_item (nome, categoria) VALUES ('Bolinho de Bacalhau', 'Entrada');
 INSERT INTO tb_item (nome, categoria) VALUES ('Tábua de Frios', 'Porção');
 INSERT INTO tb_item (nome, categoria) VALUES ('Isca de Peixe', 'Porção');
 INSERT INTO tb_item (nome, categoria) VALUES ('Café Expresso', 'Bebida');
+
+INSERT INTO tb_empresa (id, nome, cnpj) VALUES (1, 'Tech Solutions', '12.345.678/0001-90');
+INSERT INTO tb_empresa (id, nome, cnpj) VALUES (2, 'Construtora Forte', '98.765.432/0001-10');
+
+INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('João Silva', '11111111111', 'Desenvolvedor', 1);
+INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Maria Souza', '22222222222', 'Engenheira', 2);
+INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Carlos P', '33333333333', 'Analista', 1);
