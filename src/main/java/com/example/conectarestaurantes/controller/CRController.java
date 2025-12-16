@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
-
+import java.util.Map;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -38,6 +38,22 @@ public class CRController {
             service.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody Map<String, String> updates) {
+        String newStatus = updates.get("status");
+
+        if (newStatus == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            Order updatedOrder = service.updateOrderStatus(id, newStatus);
+            return ResponseEntity.ok(updatedOrder);
+        } catch (RuntimeException e) { 
             return ResponseEntity.notFound().build();
         }
     }
