@@ -14,7 +14,16 @@ import java.util.List;
 public class CRService {
 
 
-    private final OrderRepository repository;
+  private final OrderRepository repository;
+  
+    public Order updateOrderStatus(Long orderId, String newStatusString) {
+
+        Order order = repository.findById(orderId)
+        .orElseThrow(() -> new RuntimeException("Pedido não encontrado com ID: " + orderId));
+        
+        order.setStatus(newStatusString);
+        return repository.save(order);
+    }
 
     public Page<Order> search(Long id, String obra, String gestor, String status, Integer maiorQue, Integer menorQue, Pageable pageable) {
         return repository.search(id, obra, gestor, status, maiorQue, menorQue, pageable);
