@@ -1,14 +1,13 @@
 package com.example.conectarestaurantes.service;
 
 
-import com.example.conectarestaurantes.Repository.OrderRepository;
-import com.example.conectarestaurantes.model.Order;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+import com.example.conectarestaurantes.Repository.OrderRepository;
+import com.example.conectarestaurantes.model.Order;
 
-import java.util.List;
 
 @Service
 public class CRService {
