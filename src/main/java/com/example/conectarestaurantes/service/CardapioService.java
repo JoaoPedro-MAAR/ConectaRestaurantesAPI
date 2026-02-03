@@ -139,9 +139,9 @@ public class CardapioService {
         return cardapioRepo.save(cardapio);
     }
 
-    public Cardapio definirDiaSemana(Long idCardapio, DiaSemana diaSemana) {
+    public Cardapio definirDiaSemana(Long idCardapio, String diaSemana) {
         Cardapio cardapio = getCardapioById(idCardapio);
-        cardapio.setDiaSemana(diaSemana);
+        cardapio.setDiaSemana(DiaSemana.fromString(diaSemana));
         return cardapioRepo.save(cardapio);
     }
 

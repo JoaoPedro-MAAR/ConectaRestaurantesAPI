@@ -92,7 +92,7 @@ public class CardapioController {
     }
 
     @PutMapping("/{id}/dia-semana")
-    public ResponseEntity<Cardapio> definirDiaSemana(@PathVariable Long id, @RequestParam DiaSemana diaSemana) {
+    public ResponseEntity<Cardapio> definirDiaSemana(@PathVariable Long id, @RequestParam String diaSemana) {
         Cardapio cardapioAtualizado = cardapioService.definirDiaSemana(id, diaSemana);
         return ResponseEntity.ok(cardapioAtualizado);
     }
