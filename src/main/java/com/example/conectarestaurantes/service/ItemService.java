@@ -1,5 +1,7 @@
 package com.example.conectarestaurantes.service;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,12 @@ public class ItemService {
     public List<Item> listarTodos() {
         return itemRepo.findAll();
     }
+    
+    public List<Item> listarPratosFeitos() {
+        return itemRepo.findAll().stream()
+                .filter(item -> Boolean.TRUE.equals(item.getIsPratoFeito()))
+                .collect(Collectors.toList());
+    }
 
     public Item buscarPorId(Long id) {
         return itemRepo.findById(id)
@@ -38,10 +46,27 @@ public class ItemService {
     }
 
     @Transactional
+    public Item salvarPratoFeito(Item prato, List<Long> idsComposicao) {
+        prato.setIsPratoFeito(true);
+        prato.setCategoria("Prato Feito"); 
+        
+        if (idsComposicao != null && !idsComposicao.isEmpty()) {
+            List<Item> itensComposicao = itemRepo.findAllById(idsComposicao);
+            prato.setComposicao(itensComposicao);
+        }
+        
+        return itemRepo.save(prato);
+    }
+
+    @Transactional
     public Item atualizar(Long id, Item itemAtualizado) {
         Item itemExistente = buscarPorId(id);
         itemExistente.setNome(itemAtualizado.getNome());
         itemExistente.setCategoria(itemAtualizado.getCategoria());
+      
+        if(itemAtualizado.getComposicao() != null) {
+             itemExistente.setComposicao(itemAtualizado.getComposicao());
+        }
         return itemRepo.save(itemExistente);
     }
 
