@@ -41,6 +41,7 @@ public class CardapioService {
         Cardapio cardapio = new Cardapio();
         cardapio.setNome(cardapioDTO.getNome());
         cardapio.setDescricao(cardapioDTO.getDescricao());
+        cardapio.setDiaSemana(DiaSemana.fromString(cardapioDTO.getDiaSemana()));
         
         if (cardapioDTO.getAtivo() == null){
             cardapio.setAtivo(false);
