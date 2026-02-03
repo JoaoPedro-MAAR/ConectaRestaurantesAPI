@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.conectarestaurantes.dto.CardapioDTO;
 import com.example.conectarestaurantes.model.Cardapio;
+import com.example.conectarestaurantes.model.enums.DiaSemana;
 import com.example.conectarestaurantes.model.enums.Turno;
 import com.example.conectarestaurantes.service.CardapioService;
 
@@ -88,5 +89,23 @@ public class CardapioController {
     public ResponseEntity<Cardapio> removerCardapioPadrao(@PathVariable Long id) {
         Cardapio cardapioAtualizado = cardapioService.removerCardapioPadrao(id);
         return ResponseEntity.ok(cardapioAtualizado);
+    }
+
+    @PutMapping("/{id}/dia-semana")
+    public ResponseEntity<Cardapio> definirDiaSemana(@PathVariable Long id, @RequestParam String diaSemana) {
+        Cardapio cardapioAtualizado = cardapioService.definirDiaSemana(id, diaSemana);
+        return ResponseEntity.ok(cardapioAtualizado);
+    }
+
+    @DeleteMapping("/{id}/dia-semana")
+    public ResponseEntity<Cardapio> removerDiaSemana(@PathVariable Long id) {
+        Cardapio cardapioAtualizado = cardapioService.removerDiaSemana(id);
+        return ResponseEntity.ok(cardapioAtualizado);
+    }
+
+    @GetMapping("/hoje")
+    public ResponseEntity<List<Cardapio>> getCardapiosDeHoje() {
+        List<Cardapio> cardapios = cardapioService.getCardapiosDeHoje();
+        return ResponseEntity.ok(cardapios);
     }
 }

@@ -3,6 +3,7 @@ package com.example.conectarestaurantes.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.conectarestaurantes.model.enums.DiaSemana;
 import com.example.conectarestaurantes.model.enums.Turno;
 
 import jakarta.persistence.CascadeType;
@@ -40,4 +41,8 @@ public class Cardapio {
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private Turno turnoPadrao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private DiaSemana diaSemana;
 }

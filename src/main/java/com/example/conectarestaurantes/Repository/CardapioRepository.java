@@ -1,5 +1,6 @@
 package com.example.conectarestaurantes.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.conectarestaurantes.model.Cardapio;
+import com.example.conectarestaurantes.model.enums.DiaSemana;
 import com.example.conectarestaurantes.model.enums.Turno;
 
 @Repository
@@ -18,6 +20,8 @@ public interface CardapioRepository extends JpaRepository<Cardapio, Long>{
 
 
    Optional<Cardapio> findByTurnoPadrao(Turno turno);
+
+   List<Cardapio> findByDiaSemana(DiaSemana diaSemana);
 
    @Query(value = """
    SELECT * FROM tb_cardapio c 
