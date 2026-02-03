@@ -8,9 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
-    @Query(value = "SELECT * FROM tb_orders o WHERE " +
+    @Query(value = "SELECT * FROM tb_solicitacao o WHERE " +
             "(:id IS NULL OR o.id = :id) AND " +
             "(:obra IS NULL OR LOWER(CAST(o.obra AS TEXT)) LIKE LOWER(CONCAT('%', :obra, '%'))) AND " +
             "(:gestor IS NULL OR LOWER(CAST(o.gestor AS TEXT)) LIKE LOWER(CONCAT('%', :gestor, '%'))) AND " +
@@ -27,6 +29,9 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
             @Param("menorQue") Integer menorQue,
             Pageable pageable
     );
+
+    @Override
+    Optional<Solicitacao> findById(Long id);
 
 
 }
