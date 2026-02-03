@@ -102,4 +102,10 @@ public class CardapioController {
         Cardapio cardapioAtualizado = cardapioService.removerDiaSemana(id);
         return ResponseEntity.ok(cardapioAtualizado);
     }
+
+    @GetMapping("/hoje")
+    public ResponseEntity<List<Cardapio>> getCardapiosDeHoje() {
+        List<Cardapio> cardapios = cardapioService.getCardapiosDeHoje();
+        return ResponseEntity.ok(cardapios);
+    }
 }
