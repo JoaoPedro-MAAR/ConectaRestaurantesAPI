@@ -45,7 +45,7 @@ DELETE FROM tb_categoria_cardapio;
 DELETE FROM tb_cardapio;
 DELETE FROM tb_registro_refeicao;
 DELETE FROM tb_funcionario;
-DELETE FROM tb_orders;
+DELETE FROM tb_solicitacao;
 DELETE FROM tb_item;   
 DELETE FROM tb_empresa;
 
@@ -53,7 +53,7 @@ DELETE FROM tb_empresa;
 -- 2. RESETAR CONTADORES
 -- =================================================================
 ALTER SEQUENCE tb_item_id_seq RESTART WITH 1;
-ALTER SEQUENCE tb_orders_id_seq RESTART WITH 1;
+ALTER SEQUENCE tb_solicitacao_id_seq RESTART WITH 1;
 ALTER SEQUENCE tb_cardapio_id_seq RESTART WITH 1;
 ALTER SEQUENCE tb_empresa_id_seq RESTART WITH 1;
 ALTER SEQUENCE tb_funcionario_id_seq RESTART WITH 1;
@@ -159,10 +159,40 @@ INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('João Silva',
 INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Maria Souza', '33333333333', 'Arquiteta', 3);
 INSERT INTO tb_funcionario (nome, cpf, cargo, empresa_id) VALUES ('Ana Costa', '44444444444', 'Arquiteta', 3);
 
-INSERT INTO tb_orders (obra, gestor, qtd_marmitas, status) VALUES ('Torre Corporativa Delta', 'Fernanda Lima', 85, 'Recebido');
-INSERT INTO tb_orders (obra, gestor, qtd_marmitas, status) VALUES ('Residencial das Flores', 'Ricardo Almeida', 40, 'Em preparo');
-INSERT INTO tb_orders (obra, gestor, qtd_marmitas, status) VALUES ('Shopping Metropolitano', 'Juliana Santos', 250, 'Enviado');
-INSERT INTO tb_orders (obra, gestor, qtd_marmitas, status) VALUES ('Viaduto Central', 'Márcio Ribeiro', 150, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Torre Corporativa Delta', 'Fernanda Lima', 85, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Residencial das Flores', 'Ricardo Almeida', 40, 'Em preparo');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Shopping Metropolitano', 'Juliana Santos', 250, 'Enviado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Viaduto Central', 'Márcio Ribeiro', 150, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Torre Corporativa Delta', 'Fernanda Lima', 85, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Residencial das Flores', 'Ricardo Almeida', 40, 'Em preparo');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Shopping Metropolitano', 'Juliana Santos', 250, 'Enviado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Viaduto Central', 'Márcio Ribeiro', 150, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Hospital São Lucas', 'Beatriz Costa', 180, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Escola Municipal Aprender', 'Lucas Martins', 60, 'Cancelado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Condomínio Vista Verde', 'Camila Pereira', 75, 'Em preparo');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Parque Ecológico da Cidade', 'Gustavo Oliveira', 30, 'Enviado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Centro de Convenções', 'Larissa Ferreira', 300, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Estação de Metrô Linha Azul', 'Rodrigo Gomes', 220, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Edifício Platinum', 'Sofia Mendes', 95, 'Em preparo');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Ginásio Poliesportivo', 'Thiago Rocha', 110, 'Cancelado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Praça da Liberdade', 'Amanda Souza', 25, 'Enviado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Complexo Industrial Alfa', 'Daniel Barbosa', 400, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Biblioteca Pública Estadual', 'Isabela Castro', 55, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Teatro Municipal', 'Vinícius Dias', 45, 'Em preparo');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Resort Águas Claras', 'Gabriela Azevedo', 130, 'Enviado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Ponte sobre o Rio Seco', 'Felipe Nunes', 160, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Universidade Federal - Campus II', 'Mariana Pinto', 280, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Aeroporto Internacional', 'Leonardo Cunha', 500, 'Cancelado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Edifício Comercial Ômega', 'Patrícia Melo', 115, 'Em preparo');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Museu de Arte Moderna', 'Eduardo Neves', 35, 'Enviado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Terminal Rodoviário', 'Vanessa Teixeira', 190, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Conjunto Habitacional Sol Nascente', 'Rafael Viana', 350, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Estádio de Futebol Arena do Povo', 'Cláudia Ramos', 600, 'Em preparo');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Centro Administrativo do Estado', 'Sérgio Moraes', 240, 'Cancelado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Usina Hidrelétrica', 'Renata Farias', 700, 'Enviado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Linha de Transmissão de Energia', 'Anderson Barros', 80, 'Finalizado');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Porto Marítimo de Cargas', 'Tatiane Correia', 450, 'Recebido');
+INSERT INTO tb_solicitacao (obra, gestor, qtd_marmitas, status) VALUES ('Parque Aquático Paraíso', 'Diego Freire', 140, 'Em preparo');
 -- Mantenha seus outros inserts de orders...
 
 -- =================================================================
