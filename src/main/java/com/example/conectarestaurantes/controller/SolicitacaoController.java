@@ -1,6 +1,7 @@
 package com.example.conectarestaurantes.controller;
 
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
@@ -20,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.conectarestaurantes.dto.RelatorioDTO;
 import com.example.conectarestaurantes.model.Solicitacao;
 import com.example.conectarestaurantes.service.SolicitacaoService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -97,4 +101,18 @@ public class SolicitacaoController {
         return service.findbyid(id);
     }
 
+
+    @GetMapping("/relatorio/metricas")
+    public ResponseEntity<RelatorioDTO> getMetricas() {
+        return ResponseEntity.ok(service.gerarMetricas());
+    }
+
+    @GetMapping("/relatorio/csv")
+    public void exportarCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"relatorio_solicitacoes.csv\"");
+        response.setCharacterEncoding("UTF-8");
+
+        service.gerarCsv(response.getWriter());
+    }
 }
