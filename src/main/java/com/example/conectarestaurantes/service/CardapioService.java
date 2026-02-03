@@ -1,5 +1,7 @@
 package com.example.conectarestaurantes.service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,7 @@ import com.example.conectarestaurantes.dto.CategoriaCardapioDTO;
 import com.example.conectarestaurantes.model.Cardapio;
 import com.example.conectarestaurantes.model.CategoriaCardapio;
 import com.example.conectarestaurantes.model.Item;
+import com.example.conectarestaurantes.model.enums.DiaSemana;
 import com.example.conectarestaurantes.model.enums.Turno;
 
 @Service
@@ -40,6 +43,7 @@ public class CardapioService {
         Cardapio cardapio = new Cardapio();
         cardapio.setNome(cardapioDTO.getNome());
         cardapio.setDescricao(cardapioDTO.getDescricao());
+        cardapio.setDiaSemana(DiaSemana.fromString(cardapioDTO.getDiaSemana()));
         
         if (cardapioDTO.getAtivo() == null){
             cardapio.setAtivo(false);
@@ -136,5 +140,35 @@ public class CardapioService {
         Cardapio cardapio = getCardapioById(id);
         cardapio.setTurnoPadrao(null);
         return cardapioRepo.save(cardapio);
+    }
+
+    public Cardapio definirDiaSemana(Long idCardapio, String diaSemana) {
+        Cardapio cardapio = getCardapioById(idCardapio);
+        cardapio.setDiaSemana(DiaSemana.fromString(diaSemana));
+        return cardapioRepo.save(cardapio);
+    }
+
+    public Cardapio removerDiaSemana(Long id) {
+        Cardapio cardapio = getCardapioById(id);
+        cardapio.setDiaSemana(null);
+        return cardapioRepo.save(cardapio);
+    }
+
+    public List<Cardapio> getCardapiosDeHoje() {
+        DayOfWeek hoje = LocalDate.now().getDayOfWeek();
+        DiaSemana diaSemana = convertDayOfWeekToDiaSemana(hoje);
+        return cardapioRepo.findByDiaSemana(diaSemana);
+    }
+
+    private DiaSemana convertDayOfWeekToDiaSemana(DayOfWeek dayOfWeek) {
+        return switch (dayOfWeek) {
+            case MONDAY -> DiaSemana.SEGUNDA;
+            case TUESDAY -> DiaSemana.TERCA;
+            case WEDNESDAY -> DiaSemana.QUARTA;
+            case THURSDAY -> DiaSemana.QUINTA;
+            case FRIDAY -> DiaSemana.SEXTA;
+            case SATURDAY -> DiaSemana.SABADO;
+            case SUNDAY -> DiaSemana.DOMINGO;
+        };
     }
 }

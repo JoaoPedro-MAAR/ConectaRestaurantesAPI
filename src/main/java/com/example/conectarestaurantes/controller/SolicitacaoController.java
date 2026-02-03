@@ -1,6 +1,7 @@
 package com.example.conectarestaurantes.controller;
 
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
@@ -20,25 +21,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.conectarestaurantes.model.Order;
-import com.example.conectarestaurantes.service.CRService;
+import com.example.conectarestaurantes.dto.RelatorioDTO;
+import com.example.conectarestaurantes.model.Solicitacao;
+import com.example.conectarestaurantes.service.SolicitacaoService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/order")
-public class CRController {
-    private final CRService service;
+public class SolicitacaoController {
+    private final SolicitacaoService service;
 
 
-    public CRController(CRService y){
+    public SolicitacaoController(SolicitacaoService y){
         this.service = y;
     }
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+    public ResponseEntity<Solicitacao> createOrder(@RequestBody Solicitacao order) {
         System.out.println("Criando um novo order");
         System.out.println(order);
-        Order savedBook = service.save(order);
+        Solicitacao savedBook = service.save(order);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
@@ -53,7 +57,7 @@ public class CRController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody Map<String, String> updates) {
+    public ResponseEntity<Solicitacao> updateOrderStatus(@PathVariable Long id, @RequestBody Map<String, String> updates) {
         String newStatus = updates.get("status");
 
         if (newStatus == null) {
@@ -61,7 +65,7 @@ public class CRController {
         }
 
         try {
-            Order updatedOrder = service.updateOrderStatus(id, newStatus);
+            Solicitacao updatedOrder = service.updateOrderStatus(id, newStatus);
             return ResponseEntity.ok(updatedOrder);
         } catch (RuntimeException e) { 
             return ResponseEntity.notFound().build();
@@ -69,18 +73,18 @@ public class CRController {
     }
 
     @GetMapping("/all")
-    public Page<Order> findAll( @RequestParam(required = false) Long id,
-                                @RequestParam(name = "obra_like", required = false) String obra,
-                                @RequestParam(name = "gestor_like", required = false) String gestor,
-                                @RequestParam(required = false) String status,
-                                @RequestParam(name = "qtd_Marmitas_gte", required = false) Integer maiorQue,
-                                @RequestParam(name = "qtd_Marmitas_lte", required = false) Integer menorQue,
-                                @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable pageable){
+    public Page<Solicitacao> findAll(@RequestParam(required = false) Long id,
+                                     @RequestParam(name = "obra_like", required = false) String obra,
+                                     @RequestParam(name = "gestor_like", required = false) String gestor,
+                                     @RequestParam(required = false) String status,
+                                     @RequestParam(name = "qtd_Marmitas_gte", required = false) Integer maiorQue,
+                                     @RequestParam(name = "qtd_Marmitas_lte", required = false) Integer menorQue,
+                                     @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable pageable){
         return service.search(id, obra, gestor, status, maiorQue, menorQue, pageable);
     }
 
     @GetMapping("/search")
-    public Page<Order> search(
+    public Page<Solicitacao> search(
             @RequestParam(required = false) Long id,
             @RequestParam(name = "obra_like", required = false) String obra,
             @RequestParam(name = "gestor_like", required = false) String gestor,
@@ -93,8 +97,22 @@ public class CRController {
 }
 
     @GetMapping("/{id}")
-    public Order findById(@PathVariable  Long id){
+    public Solicitacao findById(@PathVariable  Long id){
         return service.findbyid(id);
     }
 
+
+    @GetMapping("/relatorio/metricas")
+    public ResponseEntity<RelatorioDTO> getMetricas() {
+        return ResponseEntity.ok(service.gerarMetricas());
+    }
+
+    @GetMapping("/relatorio/csv")
+    public void exportarCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"relatorio_solicitacoes.csv\"");
+        response.setCharacterEncoding("UTF-8");
+
+        service.gerarCsv(response.getWriter());
+    }
 }
