@@ -4,6 +4,9 @@ import com.example.conectarestaurantes.dto.PedidoCompletoDTO;
 import com.example.conectarestaurantes.model.Pedido;
 import com.example.conectarestaurantes.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/pedidos")
+@CrossOrigin(origins = "*")
 public class PedidoController {
 
     @Autowired
@@ -33,9 +37,14 @@ public class PedidoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
     @GetMapping("/solicitacao/{idSolicitacao}")
-    public List<Pedido> getPedidoPelaSolicitacao(@PathVariable Integer idSolicitacao){
-        return pedidoService.pedidosPorSolicitacao(idSolicitacao);
+    public ResponseEntity<Page<Pedido>> getPedidosPorSolicitacao(
+            @PathVariable Long idSolicitacao,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size // 10 itens por página
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Pedido> pedidos = pedidoService.buscarPorSolicitacao(idSolicitacao, pageable);
+        return ResponseEntity.ok(pedidos);
     }
 }
