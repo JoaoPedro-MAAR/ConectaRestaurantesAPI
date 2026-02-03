@@ -5,43 +5,43 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.conectarestaurantes.Repository.OrderRepository;
-import com.example.conectarestaurantes.model.Order;
+import com.example.conectarestaurantes.Repository.SolicitacaoRepository;
+import com.example.conectarestaurantes.model.Solicitacao;
 
 
 @Service
-public class CRService {
+public class SolicitacaoService {
 
 
-  private final OrderRepository repository;
+  private final SolicitacaoRepository repository;
   
-    public Order updateOrderStatus(Long orderId, String newStatusString) {
+    public Solicitacao updateOrderStatus(Long orderId, String newStatusString) {
 
-        Order order = repository.findById(orderId)
+        Solicitacao order = repository.findById(orderId)
         .orElseThrow(() -> new RuntimeException("Pedido não encontrado com ID: " + orderId));
         
         order.setStatus(newStatusString);
         return repository.save(order);
     }
 
-    public Page<Order> search(Long id, String obra, String gestor, String status, Integer maiorQue, Integer menorQue, Pageable pageable) {
+    public Page<Solicitacao> search(Long id, String obra, String gestor, String status, Integer maiorQue, Integer menorQue, Pageable pageable) {
         return repository.search(id, obra, gestor, status, maiorQue, menorQue, pageable);
     }
 
 
-    public CRService(OrderRepository repository){
+    public SolicitacaoService(SolicitacaoRepository repository){
         this.repository = repository;
     }
 
-    public Page<Order> findAll(Pageable pageable){
+    public Page<Solicitacao> findAll(Pageable pageable){
         return repository.findAll(pageable);
     }
 
-    public Order findbyid(Long id){
+    public Solicitacao findbyid(Long id){
         return repository.findById(id).orElse(null);
     }
 
-    public Order save(Order o){
+    public Solicitacao save(Solicitacao o){
         o.setStatus("RECEBIDO");
         return repository.save(o);
     }

@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="tb_orders")
-public class Order {
+@Table(name="tb_solicitacao")
+public class Solicitacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,7 @@ public class Order {
     @Column(nullable = true, columnDefinition = "VARCHAR(50)")
     private String status;
 
-    public Order() {}
+    public Solicitacao() {}
 
     public String getGestor() {
         return gestor;

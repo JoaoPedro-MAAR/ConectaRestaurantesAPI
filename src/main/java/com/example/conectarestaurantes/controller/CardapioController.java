@@ -54,21 +54,9 @@ public class CardapioController {
     @PostMapping
     public Cardapio create(@RequestBody CardapioDTO cardapioDTO) {
         return cardapioService.createCardapio(cardapioDTO);
-        // Cardapio cardapio = new Cardapio();
-        // cardapio.setNome(cardapioDTO.getNome());
-        // cardapio.setDescricao(cardapioDTO.getDescricao());
-        // return cardapioService.createCardapio(cardapio, cardapioDTO.getItensIds());
     }
     
 
-    // Alterar forma de editar depois
-    // @PutMapping("/{id}")
-    // public Cardapio update(@PathVariable Long id, @RequestBody CardapioDTO cardapioDTO) {
-    //     Cardapio cardapio = new Cardapio();
-    //     cardapio.setNome(cardapioDTO.getNome());
-    //     cardapio.setDescricao(cardapioDTO.getDescricao());
-    //     return cardapioService.updateCardapio(id, cardapio, cardapioDTO.getItensIds());
-    // }
     
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
