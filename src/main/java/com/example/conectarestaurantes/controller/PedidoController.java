@@ -41,7 +41,7 @@ public class PedidoController {
     public ResponseEntity<Page<Pedido>> getPedidosPorSolicitacao(
             @PathVariable Long idSolicitacao,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size // 10 itens por página
+            @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Pedido> pedidos = pedidoService.buscarPorSolicitacao(idSolicitacao, pageable);
