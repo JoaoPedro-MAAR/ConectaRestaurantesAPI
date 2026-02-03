@@ -16,6 +16,7 @@ import com.example.conectarestaurantes.dto.CategoriaCardapioDTO;
 import com.example.conectarestaurantes.model.Cardapio;
 import com.example.conectarestaurantes.model.CategoriaCardapio;
 import com.example.conectarestaurantes.model.Item;
+import com.example.conectarestaurantes.model.enums.DiaSemana;
 import com.example.conectarestaurantes.model.enums.Turno;
 
 @Service
@@ -135,6 +136,18 @@ public class CardapioService {
     public Cardapio removerCardapioPadrao (Long id) {
         Cardapio cardapio = getCardapioById(id);
         cardapio.setTurnoPadrao(null);
+        return cardapioRepo.save(cardapio);
+    }
+
+    public Cardapio definirDiaSemana(Long idCardapio, DiaSemana diaSemana) {
+        Cardapio cardapio = getCardapioById(idCardapio);
+        cardapio.setDiaSemana(diaSemana);
+        return cardapioRepo.save(cardapio);
+    }
+
+    public Cardapio removerDiaSemana(Long id) {
+        Cardapio cardapio = getCardapioById(id);
+        cardapio.setDiaSemana(null);
         return cardapioRepo.save(cardapio);
     }
 }
